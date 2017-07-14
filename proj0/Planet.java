@@ -4,12 +4,12 @@ import java.io.*;
 import java.util.*;
 
 public class Planet {
-    double xxPos;
-    double yyPos;
-    double xxVel;
-    double yyVel;
-    double mass;
-    String imgFileName;
+    public double xxPos;
+    public double yyPos;
+    public double xxVel;
+    public double yyVel;
+    public double mass;
+    public String imgFileName;
     public Planet(double xP, double yP, double xV,
               double yV, double m, String img) {
         xxPos = xP;
@@ -32,7 +32,7 @@ public class Planet {
         double dx;
         double dy;
         dx = this.xxPos-sun.xxPos;
-        dy = this.xxPos-sun.yyPos;
+        dy = this.yyPos-sun.yyPos;
         return Math.sqrt(dx*dx + dy*dy);
     }
     public double calcForceExertedBy(Planet sun) {
@@ -72,9 +72,12 @@ public class Planet {
     public void update(double dt, double fX, double fY) {
         double ax = fX/this.mass;
         double ay = fY/this.mass;
-        double vx = dt * ax + this.xxVel;
-        double vy = dt * ay + this.yyVel;
-        this.xxPos = this.xxPos + dt * vx;
-        this.yyPos = this.yyPos + dt * vy;
+        this.xxVel = dt * ax + this.xxVel;
+        this.yyVel = dt * ay + this.yyVel;
+        this.xxPos = this.xxPos + dt * this.xxVel;
+        this.yyPos = this.yyPos + dt * this.yyVel;
+    }
+    public void draw(){
+        StdDraw.picture(this.xxPos, this.yyPos, "images/" + this.imgFileName);
     }
 }
