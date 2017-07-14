@@ -42,6 +42,7 @@ public class NBody {
         double t = 0;
         double[] xForces = new double[p.length];
         double[] yForces = new double[p.length];
+        StdAudio.play("./audio/2001.mid");
         while(t<T){
             for (int i = 0; i < p.length; i++){
                 xForces[i] = p[i].calcNetForceExertedByX(p);
@@ -49,13 +50,33 @@ public class NBody {
                 p[i].update(dt,xForces[i],yForces[i]);
             }
             StdDraw.setScale(-radius, radius);
-            StdDraw.clear();
             StdDraw.picture(0, 0, "images/starfield.jpg");
             for(Planet i : p) {
                 i.draw();
             }
             StdDraw.show(10);
             t = t + dt;
+            
+        }
+        System.out.println(p.length);
+        System.out.println(String.format("%6.2e",radius));
+        for (Planet i: p) {
+            System.out.println(String.format("%6.4e %6.4e %6.4e %6.4e %6.4e",
+                                             i.xxPos,i.yyPos,i.xxVel,i.yyVel,i.mass)
+                                            + " " + i.imgFileName);
+        }
+        try {
+        PrintWriter writer = new PrintWriter("data/new_planets.txt", "UTF-8");
+        writer.println(p.length);
+        writer.println(String.format("%6.4e",radius));
+        for (Planet i: p) {
+            writer.println(String.format("%6.4e %6.4e %6.4e %6.4e %6.4e",
+                                             i.xxPos,i.yyPos,i.xxVel,i.yyVel,i.mass)
+                                            + " " + i.imgFileName);
+        }
+        writer.close();
+        } catch (Exception e) {
+            System.out.println("aalsdfasdfa");
         }
     }
 }
