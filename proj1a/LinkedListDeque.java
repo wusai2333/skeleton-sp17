@@ -14,8 +14,8 @@ public class LinkedListDeque<Item> {
             prev = p;
         }
         public StuffNode(){}
-        }
     }
+
 
     private int size;
     private StuffNode head;
@@ -96,6 +96,7 @@ public class LinkedListDeque<Item> {
     public boolean isEmpty() {
         return size == 0;
     }
+
     public void printDeque() {
         StuffNode ptr = head.next;
         while (ptr != tail) {
